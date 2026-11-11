@@ -92,7 +92,7 @@ docker rm college-container
 
 بخش Back-End با استفاده از Flask پیاده‌سازی شده و فایل‌های پیکربندی Docker نیز آماده شده‌اند. ساخت Image و اجرای Container هنوز به‌صورت عملی آزمایش نشده است.
 
-
+---
 
 # College Management System
 
