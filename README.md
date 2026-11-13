@@ -1,13 +1,15 @@
 # سیستم مدیریت امور دانشگاه (College Management System)
 
-این پروژه با هدف طراحی و پیاده‌سازی یک سیستم ساده برای مدیریت امور دانشگاهی با استفاده از زبان Python و فریم‌ورک Flask توسعه داده شده است.
+این پروژه یک سیستم ساده مدیریت امور دانشگاهی است که با استفاده از Python و فریم‌ورک Flask توسعه داده شده است. بخش Backend پروژه به‌صورت REST API طراحی شده و با استفاده از Docker قابل اجرا است.
 
 ## امکانات پروژه
 
+- مدیریت کاربران (Users)
+- مدیریت وظایف (Tasks)
 - ثبت‌نام دانشجویان
 - انتخاب واحد درسی
 - گزارش نمرات
-- ارائه API برای مدیریت کاربران و وظایف
+- ارائه REST API
 
 ## تکنولوژی‌های استفاده‌شده
 
@@ -30,47 +32,73 @@ College/
 └── README.md
 ```
 
-## اجرای پروژه بدون Docker
-
-ابتدا Python 3.12 را نصب کنید.
-
-سپس وابستگی‌های پروژه را نصب کنید:
-
-```bash
-pip install -r requirements.txt
-```
-
-برای اجرای برنامه از دستور زیر استفاده کنید:
-
-```bash
-python app.py
-```
-
-پس از اجرا، آدرس زیر را در مرورگر باز کنید:
-
-```text
-http://localhost:5000/
-```
-
 ## اجرای پروژه با Docker
 
-برای ساخت Docker Image از دستور زیر استفاده کنید:
+برای اجرای پروژه ابتدا باید Docker Desktop نصب و اجرا شده باشد.
+
+### 1. دریافت پروژه
+
+Repository را از GitHub دریافت کنید:
+
+```bash
+git clone https://github.com/INZIII86/College.git
+```
+
+وارد پوشه پروژه شوید:
+
+```bash
+cd College
+```
+
+### 2. ساخت Docker Image
+
+با اجرای دستور زیر، Image پروژه ساخته می‌شود:
 
 ```bash
 docker build -t college-api .
 ```
 
-برای اجرای Container:
+### 3. اجرای Docker Container
+
+برای اجرای پروژه داخل یک Container از دستور زیر استفاده کنید:
 
 ```bash
 docker run -d -p 5000:5000 --name college-container college-api
 ```
+
+در این دستور، پورت 5000 کامپیوتر به پورت 5000 داخل Container متصل می‌شود.
+
+### 4. بررسی وضعیت Container
 
 برای مشاهده Containerهای در حال اجرا:
 
 ```bash
 docker ps
 ```
+
+### 5. تست API
+
+پس از اجرای موفق Container، آدرس‌های زیر را در مرورگر باز کنید:
+
+صفحه اصلی API:
+
+```text
+http://localhost:5000/
+```
+
+دریافت فهرست کاربران:
+
+```text
+http://localhost:5000/api/users
+```
+
+دریافت فهرست وظایف:
+
+```text
+http://localhost:5000/api/tasks
+```
+
+### 6. متوقف کردن و حذف Container
 
 برای متوقف کردن Container:
 
@@ -86,24 +114,30 @@ docker rm college-container
 
 ## مستندات API
 
-اطلاعات مربوط به Endpointها، متدهای HTTP، کدهای وضعیت و دیاگرام معماری در فایل `API_CONTRACT.md` قرار داده شده است.
+اطلاعات مربوط به Resourceها، Endpointها، متدهای HTTP، کدهای وضعیت و دیاگرام معماری در فایل `API_CONTRACT.md` قرار دارد.
+
+## نکته
+
+اطلاعات کاربران و وظایف در نسخه فعلی به‌صورت موقت در حافظه برنامه ذخیره می‌شوند و با راه‌اندازی مجدد برنامه به حالت اولیه برمی‌گردند.
 
 ## وضعیت پروژه
 
-بخش Back-End با استفاده از Flask پیاده‌سازی شده و فایل‌های پیکربندی Docker نیز آماده شده‌اند. ساخت Image و اجرای Container هنوز به‌صورت عملی آزمایش نشده است.
+Backend پروژه با Flask پیاده‌سازی شده و فایل‌های موردنیاز Docker شامل `Dockerfile` و `.dockerignore` آماده شده‌اند. دستورات ساخت Image و اجرای Container نیز در این مستندات ارائه شده‌اند.
 
 ---
 
 # College Management System
 
-A simple College Management System project developed using Python and Flask.
+A simple College Management System developed using Python and Flask. The backend is designed as a REST API and can be deployed using Docker.
 
 ## Project Features
 
+- User Management
+- Task Management
 - Student Registration
 - Course Selection
 - Grade Reporting
-- REST API for Users and Tasks
+- REST API
 
 ## Technologies Used
 
@@ -115,7 +149,6 @@ A simple College Management System project developed using Python and Flask.
 
 ```text
 College/
-│
 ├── app.py
 ├── course.py
 ├── registration.py
@@ -127,54 +160,69 @@ College/
 └── README.md
 ```
 
-## Running the Application Without Docker
+## Running the Project with Docker
 
-1. Install Python 3.12.
-2. Install dependencies:
+Docker Desktop must be installed and running before starting the project.
 
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the application:
+### 1. Clone the Repository
 
 ```bash
-python app.py
+git clone https://github.com/INZIII86/College.git
 ```
 
-4. Open the following address in your browser:
+Navigate to the project directory:
 
-```text
-http://localhost:5000/
+```bash
+cd College
 ```
 
-## Docker Instructions
+### 2. Build the Docker Image
 
-Build the Docker image:
+Run the following command to build the Docker image:
 
 ```bash
 docker build -t college-api .
 ```
 
-Run the container:
+### 3. Run the Docker Container
+
+Start the application inside a Docker container:
 
 ```bash
 docker run -d -p 5000:5000 --name college-container college-api
 ```
 
-Check running containers:
+### 4. Check the Container Status
+
+To check running containers:
 
 ```bash
 docker ps
 ```
 
-Test the API:
+### 5. Test the API
+
+After starting the container, open the following URLs in your browser:
+
+Main API endpoint:
 
 ```text
 http://localhost:5000/
+```
+
+Get all users:
+
+```text
 http://localhost:5000/api/users
+```
+
+Get all tasks:
+
+```text
 http://localhost:5000/api/tasks
 ```
+
+### 6. Stop and Remove the Container
 
 Stop the container:
 
@@ -190,8 +238,12 @@ docker rm college-container
 
 ## API Documentation
 
-The API endpoints, HTTP methods, status codes, and architecture diagram are documented in `API_CONTRACT.md`.
+API resources, endpoints, HTTP methods, status codes, and the architecture diagram are documented in `API_CONTRACT.md`.
+
+## Note
+
+User and task data are currently stored in memory and will reset when the application restarts.
 
 ## Project Status
 
-The Flask backend and Docker configuration files have been prepared. Docker image building and container execution have not yet been tested.
+The Flask backend has been implemented, and Docker configuration files (`Dockerfile` and `.dockerignore`) have been prepared. Docker build and run commands are documented above.
